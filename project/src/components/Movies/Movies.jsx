@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
+import { getPopularMovies } from "../../tdmb";
 import "./Movies.css";
-
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -9,30 +8,27 @@ const Movies = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const loadMovies = async () => {
       try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ka-GE&page=1`,
-        );
-
-        if (!response.ok) {
-          throw new Error("ფილმების ჩატვირთვა ვერ მოხერხდა");
-        }
-
-        const data = await response.json();
-        setMovies(data.results || []);
+        const data = await getPopularMovies();
+        setMovies(data);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "ფილმების ჩატვირთვა ვერ მოხერხდა");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchMovies();
+    loadMovies();
   }, []);
 
-  if (loading) return <p className="movies-status">იტვირთება...</p>;
-  if (error) return <p className="movies-status">{error}</p>;
+  if (loading) {
+    return <p className="movies-status">ფილმები იტვირთება...</p>;
+  }
+
+  if (error) {
+    return <p className="movies-status">{error}</p>;
+  }
 
   return (
     <section className="movies-section">
