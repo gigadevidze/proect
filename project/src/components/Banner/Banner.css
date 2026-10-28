@@ -13,13 +13,13 @@
   overflow: hidden;
   isolation: isolate;
   border-radius: 12px;
-  background-color: #1a1d1b;
 
-  /* ჩასვი Interstellar-ის სურათი assets საქაღალდეში */
-  background-image: url("/images/Homepage-content.png");
+  background-color: #1a1d1b;
   background-size: cover;
-  background-position: center;
+  background-position: center 30%;
   background-repeat: no-repeat;
+
+  transition: background-image 0.3s ease;
 }
 
 .banner-overlay {
@@ -30,14 +30,24 @@
   background: linear-gradient(
     90deg,
     rgba(16, 18, 17, 0.96) 0%,
-    rgba(16, 18, 17, 0.69) 45%,
-    rgba(16, 18, 17, 0) 100%
+    rgba(16, 18, 17, 0.75) 45%,
+    rgba(16, 18, 17, 0.15) 100%
   );
 }
 
 .banner-content {
   width: 525px;
   max-width: 100%;
+  animation: banner-fade 0.5s ease;
+}
+
+.banner-label {
+  margin: 0 0 12px;
+  color: #bbd79c;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .banner-title {
@@ -47,16 +57,26 @@
   font-size: 48px;
   font-weight: 700;
   line-height: 1.25;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 .banner-description {
+  display: -webkit-box;
   margin: 18px 0 0;
+  overflow: hidden;
   color: #c0c5bd;
   font-family: "Noto Sans Georgian", sans-serif;
   font-size: 14px;
-  font-weight: 400;
   line-height: 1.8;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.banner-release {
+  margin: 14px 0 0;
+  color: #bbd79c;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .banner-pagination {
@@ -66,27 +86,55 @@
 
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+}
+
+.banner-pagination button {
+  display: block;
+  height: 5px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  transition:
+    width 0.25s ease,
+    background-color 0.25s ease;
 }
 
 .pagination-active {
   width: 24px;
-  height: 4px;
-  border-radius: 2px;
   background-color: #bbd79c;
 }
 
 .pagination-dot {
-  width: 6px;
-  height: 4px;
-  border-radius: 2px;
+  width: 7px;
   background-color: #899184;
 }
 
-/* Tablet */
+.banner-pagination button:hover {
+  background-color: #f3f4ef;
+}
+
+.banner-loading {
+  color: #f3f4ef;
+}
+
+@keyframes banner-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 900px) {
   .banner {
     width: calc(100% - 64px);
+    height: 420px;
     margin: 24px 32px 0;
     padding: 32px;
   }
@@ -96,12 +144,11 @@
   }
 }
 
-/* Mobile — Figma-ს მობილური დიზაინი */
 @media (max-width: 600px) {
   .banner {
     width: calc(100% - 40px);
     height: 490px;
-    margin: 64px 20px 0;
+    margin: 24px 20px 0;
     padding: 24px;
     background-position: center;
   }
@@ -110,8 +157,8 @@
     background: linear-gradient(
       180deg,
       rgba(16, 18, 17, 0.05) 0%,
-      rgba(16, 18, 17, 0.2) 35%,
-      rgba(16, 18, 17, 0.96) 100%
+      rgba(16, 18, 17, 0.45) 35%,
+      rgba(16, 18, 17, 0.97) 100%
     );
   }
 
@@ -128,9 +175,11 @@
     margin-top: 14px;
     font-size: 13px;
     line-height: 1.8;
+    -webkit-line-clamp: 4;
   }
 
   .banner-pagination {
-    display: none;
+    right: 24px;
+    bottom: 16px;
   }
 }
