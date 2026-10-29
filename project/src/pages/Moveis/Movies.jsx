@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPopularMovies } from "../../services/tdm";
+import { getMovies } from "../../tdmb";
 import "./Movies.css";
 
 const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
@@ -12,7 +12,7 @@ const Movies = () => {
   useEffect(() => {
     const loadMovies = async () => {
       try {
-        const data = await getPopularMovies();
+        const data = await getMovies();
         setMovies(data);
       } catch (err) {
         setError(err.message || "ფილმების ჩატვირთვა ვერ მოხერხდა");
@@ -35,7 +35,7 @@ const Movies = () => {
   return (
     <section className="movies-section">
       <div className="movies-header">
-        <h2 className="movies-heading">პოპულარული ფილმები</h2>
+        <h2 className="movies-heading">ფილმები</h2>
         <span className="movies-count">{movies.length} ფილმი</span>
       </div>
 
@@ -46,7 +46,7 @@ const Movies = () => {
               {movie.poster_path ? (
                 <img
                   src={`${IMAGE_BASE}${movie.poster_path}`}
-                  alt={movie.title}
+                  alt={movie.title || movie.original_title}
                   className="movie-poster"
                   loading="lazy"
                 />
@@ -73,6 +73,7 @@ const Movies = () => {
                     ? movie.release_date.slice(0, 4)
                     : "თარიღი უცნობია"}
                 </span>
+
                 <span className="movie-language">
                   {movie.original_language?.toUpperCase()}
                 </span>

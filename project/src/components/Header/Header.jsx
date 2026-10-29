@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
@@ -8,7 +9,7 @@ const Header = () => {
   return (
     <header className="site-header">
       <div className="header-left">
-        <a href="/" className="header-brand">
+        <NavLink to="/" className="header-brand">
           <span className="brand-icon">
             <svg
               viewBox="0 0 24 24"
@@ -25,19 +26,35 @@ const Header = () => {
               <path d="M8 3 6 7M14 3l-2 4M20 3l-2 4" />
             </svg>
           </span>
+
           <span className="brand-name">კადრი</span>
-        </a>
+        </NavLink>
 
         <nav className={`header-nav ${menuOpen ? "nav-open" : ""}`}>
-          <a href="#home" className="nav-link active">
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            onClick={() => setMenuOpen(false)}
+          >
             მთავარი
-          </a>
-          <a href="#movies" className="nav-link">
+          </NavLink>
+
+          <NavLink
+            to="/movies"
+            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            onClick={() => setMenuOpen(false)}
+          >
             ფილმები
-          </a>
-          <a href="#series" className="nav-link">
+          </NavLink>
+
+          <NavLink
+            to="/tvshows"
+            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            onClick={() => setMenuOpen(false)}
+          >
             სერიალები
-          </a>
+          </NavLink>
         </nav>
       </div>
 
@@ -66,8 +83,9 @@ const Header = () => {
         </label>
 
         <button
+          type="button"
           className="header-menu-button"
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() => setMenuOpen((prev) => !prev)}
           aria-label="მენიუ"
           aria-expanded={menuOpen}
         >
