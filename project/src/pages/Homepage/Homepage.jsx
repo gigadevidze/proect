@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getPopularMovies } from "../../tdmb";
-import "./Movies.css";
+import "./Homepage.css";
 
-const Movies = () => {
+const Homepage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -67,4 +67,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default Homepage;

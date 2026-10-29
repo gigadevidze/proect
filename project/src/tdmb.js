@@ -23,6 +23,12 @@ export const getPopularMovies = async () => {
 
 
 
+
+
+
+
+
+
 export const getUpcomingMovies = async () => {
   const response = await fetch(
     `${BASE_URL}/movie/upcoming?language=ka-GE&page=1`,
