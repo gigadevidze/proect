@@ -1,0 +1,42 @@
+.tv-shows {
+  padding: 30px;
+}
+
+.tv-shows h1 {
+  margin-bottom: 25px;
+}
+
+.tv-shows-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 25px;
+}
+
+.tv-show-card {
+  overflow: hidden;
+  border-radius: 10px;
+  background: #1f1f1f;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.tv-show-card:hover {
+  transform: translateY(-5px);
+}
+
+.tv-show-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+.tv-show-card h3 {
+  margin: 12px;
+  font-size: 16px;
+}
+
+.tv-show-card p {
+  margin: 0 12px 12px;
+  color: #f5c518;
+}
