@@ -78,3 +78,24 @@ export const getTvShows = async () => {
 
   return data.results || [];
 };
+
+
+
+export const searchMovies = async (query) => {
+  const response = await fetch(
+    `${BASE_URL}/search/movie?query=${encodeURIComponent(query)}&language=ka-GE&page=1`,
+    {
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+        accept: "application/json",
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`ფილმის ძებნა ვერ მოხერხდა: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data.results || [];
+};

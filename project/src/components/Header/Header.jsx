@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
+import Search from "../Search/Search";
 
 const Header = () => {
   const [search, setSearch] = useState("");
@@ -59,28 +60,7 @@ const Header = () => {
       </div>
 
       <div className="header-right">
-        <label className="header-search">
-          <svg
-            viewBox="0 0 24 24"
-            width="18"
-            height="18"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          >
-            <circle cx="11" cy="11" r="7" />
-            <path d="m16 16 4 4" />
-          </svg>
-
-          <input
-            type="search"
-            placeholder="მოძებნე ფილმი..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            aria-label="ფილმის ძიება"
-          />
-        </label>
+        <Search />
 
         <button
           type="button"
