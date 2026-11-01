@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getTvShows } from "../../tdmb";
 import "./TvShovs.css";
 
@@ -8,6 +9,8 @@ const TvShows = () => {
   const [tvShows, setTvShows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTvShows = async () => {
@@ -38,11 +41,16 @@ const TvShows = () => {
 
       <div className="tv-shows-list">
         {tvShows.map((show) => (
-          <div key={show.id} className="tv-show-card">
+          <div
+            key={show.id}
+            className="tv-show-card"
+            onClick={() => navigate(`/details/tv/${show.id}`)}
+            style={{ cursor: "pointer" }}
+          >
             <img
               src={
                 show.poster_path
-                  ? `${IMAGE_BASE_URL}${show.poster_path} `
+                  ? `${IMAGE_BASE_URL}${show.poster_path}`
                   : "/no-image.png"
               }
               alt={show.name}
@@ -50,7 +58,7 @@ const TvShows = () => {
 
             <h3>{show.name}</h3>
 
-            <p>რეიტინგი: {show.vote_average.toFixed(1)}</p>
+            <p>რეიტინგი: {show.vote_average?.toFixed(1) || "N/A"}</p>
           </div>
         ))}
       </div>

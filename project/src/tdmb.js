@@ -79,8 +79,6 @@ export const getTvShows = async () => {
   return data.results || [];
 };
 
-
-
 export const searchMovies = async (query) => {
   const response = await fetch(
     `${BASE_URL}/search/movie?query=${encodeURIComponent(query)}&language=ka-GE&page=1`,
@@ -97,5 +95,43 @@ export const searchMovies = async (query) => {
   }
 
   const data = await response.json();
+  return data.results || [];
+};
+
+export const getDetails = async (mediaType, id) => {
+  const response = await fetch(
+    `${BASE_URL}/${mediaType}/${id}?language=ka-GE`,
+    {
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+        accept: "application/json",
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`მონაცემების ჩატვირთვა ვერ მოხერხდა: ${response.status}`);
+  }
+
+  return await response.json();
+};
+
+export const getMovieVideos = async (mediaType, id) => {
+  const response = await fetch(
+    `${BASE_URL}/${mediaType}/${id}/videos?language=en-US`,
+    {
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+        accept: "application/json",
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`ვიდეოს ჩატვირთვა ვერ მოხერხდა: ${response.status}`);
+  }
+
+  const data = await response.json();
+
   return data.results || [];
 };

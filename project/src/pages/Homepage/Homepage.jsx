@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getPopularMovies } from "../../tdmb";
 import "./Homepage.css";
+
+const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 
 const Homepage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadMovies = async () => {
@@ -36,10 +41,15 @@ const Homepage = () => {
 
       <div className="movies-grid">
         {movies.map((movie) => (
-          <article className="movie-card" key={movie.id}>
+          <article
+            className="movie-card"
+            key={movie.id}
+            onClick={() => navigate(`/details/movie/${movie.id}`)}
+            style={{ cursor: "pointer" }}
+          >
             {movie.poster_path ? (
               <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                src={`${IMAGE_BASE}${movie.poster_path}`}
                 alt={movie.title}
                 className="movie-poster"
                 loading="lazy"
@@ -55,6 +65,7 @@ const Homepage = () => {
 
               <div className="movie-meta">
                 <span>{movie.release_date?.slice(0, 4) || "—"}</span>
+
                 <span className="movie-rating">
                   ★ {Number(movie.vote_average || 0).toFixed(1)}
                 </span>

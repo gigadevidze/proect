@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getMovies } from "../../tdmb";
 import "./Movies.css";
 
@@ -8,6 +9,8 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadMovies = async () => {
@@ -41,7 +44,12 @@ const Movies = () => {
 
       <div className="movies-grid">
         {movies.map((movie) => (
-          <article className="movie-card" key={movie.id}>
+          <article
+            className="movie-card"
+            key={movie.id}
+            onClick={() => navigate(`/details/movie/${movie.id}`)}
+            style={{ cursor: "pointer" }}
+          >
             <div className="movie-poster-wrapper">
               {movie.poster_path ? (
                 <img
